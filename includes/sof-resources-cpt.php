@@ -170,12 +170,14 @@ class Spirit_Of_Football_Resources_CPT {
 			4 => __( 'Resource updated.', 'sof-resources' ),
 
 			// Item restored to a revision.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			5 => isset( $_GET['revision'] ) ?
 
 				// Revision text.
 				sprintf(
 					/* translators: %s: Title of the revision. */
 					__( 'Resource restored to revision from %s', 'sof-resources' ),
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					wp_post_revision_title( (int) $_GET['revision'], false )
 				) :
 

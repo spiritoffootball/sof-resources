@@ -148,7 +148,8 @@ class Spirit_Of_Football_Resources_Metaboxes {
 		}
 
 		// Authenticate.
-		$nonce = isset( $_POST['sof_resource_nonce'] ) ? $_POST['sof_resource_nonce'] : '';
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$nonce = isset( $_POST['sof_resource_nonce'] ) ? wp_unslash( $_POST['sof_resource_nonce'] ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'sof_resource_settings' ) ) {
 			return;
 		}
