@@ -4,7 +4,7 @@ Provides a Resources post type for Spirit of Football.
 
 ## Description
 
-*SOF Resources* is a WordPress plugin that provides quotes and associated functionality for Spirit of Football.
+*SOF Resources* is a WordPress plugin that provides Resources and associated functionality for Spirit of Football.
 
 ## Installation
 
