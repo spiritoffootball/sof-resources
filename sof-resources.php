@@ -156,7 +156,7 @@ class Spirit_Of_Football_Resources {
 		load_plugin_textdomain(
 			'sof-resources', // Unique name.
 			false, // Deprecated argument.
-			dirname( plugin_basename( SOF_QUOTES_FILE ) ) . '/languages/' // Relative path to files.
+			dirname( plugin_basename( SOF_RESOURCES_FILE ) ) . '/languages/' // Relative path to files.
 		);
 
 	}
