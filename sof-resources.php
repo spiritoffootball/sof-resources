@@ -1,11 +1,13 @@
 <?php
 /**
+ * SOF Resources
+ *
  * Plugin Name: SOF Resources
- * Plugin URI: https://github.com/spiritoffootball/sof-resources
  * Description: Provides Resources and associated functionality.
- * Author: Christian Wach
- * Version: 0.1
- * Author URI: https://haystack.co.uk
+ * Plugin URI:  https://github.com/spiritoffootball/sof-resources
+ * Version:     0.1
+ * Author:      Christian Wach
+ * Author URI:  https://haystack.co.uk
  * Text Domain: sof-resources
  * Domain Path: /languages
  *
@@ -47,7 +49,7 @@ class Spirit_Of_Football_Resources {
 	 *
 	 * @since 0.1
 	 * @access public
-	 * @var object $cpt The Custom Post Type object.
+	 * @var Spirit_Of_Football_Resources_CPT
 	 */
 	public $cpt;
 
@@ -56,7 +58,7 @@ class Spirit_Of_Football_Resources {
 	 *
 	 * @since 0.1
 	 * @access public
-	 * @var object $metaboxes The Metaboxes object.
+	 * @var Spirit_Of_Football_Resources_Metaboxes
 	 */
 	public $metaboxes;
 
@@ -99,7 +101,7 @@ class Spirit_Of_Football_Resources {
 	public function setup_globals() {
 
 		// Instantiate objects.
-		$this->cpt = new Spirit_Of_Football_Resources_CPT();
+		$this->cpt       = new Spirit_Of_Football_Resources_CPT();
 		$this->metaboxes = new Spirit_Of_Football_Resources_Metaboxes();
 
 	}

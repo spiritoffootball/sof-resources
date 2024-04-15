@@ -4,8 +4,6 @@
  *
  * Handles Metaboxes for Resources.
  *
- * @since 0.1
- *
  * @package Spirit_Of_Football_Resources
  */
 
@@ -26,7 +24,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 *
 	 * @since 0.1
 	 * @access public
-	 * @var str $meta_key The meta key for the sticky Resource.
+	 * @var string
 	 */
 	public $sticky_meta_key = 'resource_sticky';
 
@@ -35,11 +33,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 *
 	 * @since 0.1
 	 */
-	public function __construct() {
-
-		// Nothing.
-
-	}
+	public function __construct() {}
 
 	/**
 	 * Register WordPress hooks.
@@ -92,22 +86,22 @@ class Spirit_Of_Football_Resources_Metaboxes {
 		$db_key = '_' . $this->sticky_meta_key;
 
 		// Default to empty.
-		$val = '';
+		$checked = false;
 
-		// Get value if if the custom field already has one.
+		// Get value if if the custom field has one.
 		$existing = get_post_meta( $post->ID, $db_key, true );
 		if ( ! empty( $existing ) ) {
-			$val = get_post_meta( $post->ID, $db_key, true );
+			$checked = true;
 		}
 
 		// Open.
 		echo '<p>';
 
 		// Checkbox.
-		echo '<input id="' . $this->sticky_meta_key . '" name="' . $this->sticky_meta_key . '" value="1" type="checkbox" ' . ( ( $val == '1' ) ? ' checked="checked"' : '' ) . '/>';
+		echo '<input type="checkbox" id="' . esc_attr( $this->sticky_meta_key ) . '" name="' . esc_attr( $this->sticky_meta_key ) . '" value="1" ' . checked( $checked, true, false ) . '/>';
 
 		// Construct label.
-		echo '<strong><label for="' . $this->sticky_meta_key . '">' . __( 'Stick at top of lists', 'sof-resources' ) . '</label></strong>';
+		echo '<strong><label for="' . esc_attr( $this->sticky_meta_key ) . '">' . esc_html__( 'Stick at top of lists', 'sof-resources' ) . '</label></strong>';
 
 		// Close.
 		echo '</p>';
@@ -165,10 +159,10 @@ class Spirit_Of_Football_Resources_Metaboxes {
 		}
 
 		// Check for revision.
-		if ( $post_obj->post_type == 'revision' ) {
+		if ( 'revision' === $post_obj->post_type ) {
 
 			// Get parent.
-			if ( $post_obj->post_parent != 0 ) {
+			if ( 0 !== (int) $post_obj->post_parent ) {
 				$post = get_post( $post_obj->post_parent );
 			} else {
 				$post = $post_obj;
@@ -179,7 +173,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 		}
 
 		// Bail if not resource post type.
-		if ( $post->post_type == 'resource' ) {
+		if ( 'resource' === $post->post_type ) {
 			return;
 		}
 
@@ -191,25 +185,28 @@ class Spirit_Of_Football_Resources_Metaboxes {
 		$db_key = '_' . $this->sticky_meta_key;
 
 		// Get sticky value.
-		$is_sticky = ( isset( $_POST[ $this->sticky_meta_key ] ) ) ? '1' : '0';
+		$is_sticky = isset( $_POST[ $this->sticky_meta_key ] ) ? '1' : '0';
 
 		// Save for this post.
 		$this->save_meta( $post, $db_key, $is_sticky );
 
 		// Delete this meta value from all other resources because only one Resource can be sticky.
-		if ( $is_sticky == '1' ) {
+		if ( 1 === (int) $is_sticky ) {
+
+			// Build query args.
+			$args = [
+				'post_type' => 'resource',
+			];
 
 			// Get all Resources.
-			$resources = get_posts( [
-				'post_type' => 'resource',
-			] );
+			$resources = get_posts( $args );
 
 			// If we have any.
 			if ( count( $resources ) > 0 ) {
 
 				// Loop and save, excluding current post.
 				foreach ( $resources as $resource ) {
-					if ( $post->ID != $resource->ID ) {
+					if ( (int) $post->ID !== (int) $resource->ID ) {
 						$this->save_meta( $post, $db_key, '0' );
 					}
 				}
@@ -226,8 +223,8 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 * @since 0.1
 	 *
 	 * @param WP_Post $post The WordPress post object.
-	 * @param string $key The meta key.
-	 * @param mixed $data The data to be saved.
+	 * @param string  $key The meta key.
+	 * @param mixed   $data The data to be saved.
 	 * @return mixed $data The data that was saved.
 	 */
 	private function save_meta( $post, $key, $data = '' ) {
