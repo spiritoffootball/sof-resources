@@ -5,7 +5,7 @@
  * Plugin Name: SOF Resources
  * Description: Provides Resources and associated functionality.
  * Plugin URI:  https://github.com/spiritoffootball/sof-resources
- * Version:     1.0.0
+ * Version:     1.0.1a
  * Author:      Christian Wach
  * Author URI:  https://haystack.co.uk
  * Text Domain: sof-resources
@@ -18,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Set our version here.
-define( 'SOF_RESOURCES_VERSION', '1.0.0' );
+define( 'SOF_RESOURCES_VERSION', '1.0.1a' );
 
 // Store reference to this file.
 if ( ! defined( 'SOF_RESOURCES_FILE' ) ) {
