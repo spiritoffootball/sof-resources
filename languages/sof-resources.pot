@@ -1,17 +1,17 @@
-# Copyright (C) 2024 Christian Wach
+# Copyright (C) 2025 Christian Wach
 # This file is distributed under the same license as the SOF Resources plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: SOF Resources 0.1\n"
+"Project-Id-Version: SOF Resources 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sof-resources\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-15T13:06:33+00:00\n"
+"POT-Creation-Date: 2025-08-14T09:37:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: sof-resources\n"
 
 #. Plugin Name of the plugin
@@ -39,124 +39,130 @@ msgstr ""
 msgid "https://haystack.co.uk"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:92
-#: includes/sof-resources-cpt.php:109
+#: includes/class-cpt.php:113
+#: includes/class-cpt.php:130
 msgid "Resources"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:93
+#: includes/class-cpt.php:114
 msgid "Resource"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:94
+#: includes/class-cpt.php:115
 msgctxt "resource"
 msgid "Add New"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:95
+#: includes/class-cpt.php:116
 msgid "Add New Resource"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:96
+#: includes/class-cpt.php:117
 msgid "Edit Resource"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:97
+#: includes/class-cpt.php:118
 msgid "New Resource"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:98
+#: includes/class-cpt.php:119
 msgid "All Resources"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:99
+#: includes/class-cpt.php:120
 msgid "View Resource"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:100
+#: includes/class-cpt.php:121
 msgid "Resource published."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:101
+#: includes/class-cpt.php:122
 msgid "Resource published privately."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:102
+#: includes/class-cpt.php:123
 msgid "Resource reverted to draft."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:103
+#: includes/class-cpt.php:124
 msgid "Resource scheduled."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:104
-#: includes/sof-resources-cpt.php:171
+#: includes/class-cpt.php:125
+#: includes/class-cpt.php:192
 msgid "Resource updated."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:105
+#: includes/class-cpt.php:126
 msgid "Search Resources"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:106
+#: includes/class-cpt.php:127
 msgid "No matching Resource found"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:107
+#: includes/class-cpt.php:128
 msgid "No Resources found in Trash"
 msgstr ""
 
 #. translators: %s: Post permalink URL.
-#: includes/sof-resources-cpt.php:164
+#: includes/class-cpt.php:185
+#, php-format
 msgid "Resource updated. <a href=\"%s\">View resource</a>"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:169
+#: includes/class-cpt.php:190
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/sof-resources-cpt.php:170
+#: includes/class-cpt.php:191
 msgid "Custom field deleted."
 msgstr ""
 
 #. translators: %s: Title of the revision.
-#: includes/sof-resources-cpt.php:180
+#: includes/class-cpt.php:201
+#, php-format
 msgid "Resource restored to revision from %s"
 msgstr ""
 
 #. translators: %s: Post permalink URL.
-#: includes/sof-resources-cpt.php:191
+#: includes/class-cpt.php:212
+#, php-format
 msgid "Resource published. <a href=\"%s\">View resource</a>"
 msgstr ""
 
-#: includes/sof-resources-cpt.php:196
+#: includes/class-cpt.php:217
 msgid "Resource saved."
 msgstr ""
 
 #. translators: %s: Post preview URL.
-#: includes/sof-resources-cpt.php:201
+#: includes/class-cpt.php:222
+#, php-format
 msgid "Resource submitted. <a target=\"_blank\" href=\"%s\">Preview resource</a>"
 msgstr ""
 
 #. translators: 1: Publish box date format, see http://php.net/date, 2: Post date, 3: Post permalink.
-#: includes/sof-resources-cpt.php:208
+#: includes/class-cpt.php:229
+#, php-format
 msgid "Resource scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview resource</a>"
 msgstr ""
 
 #. translators: Publish box date format, see http://php.net/date
-#: includes/sof-resources-cpt.php:210
+#: includes/class-cpt.php:231
 msgid "M j, Y @ G:i"
 msgstr ""
 
 #. translators: %s: Post preview URL.
-#: includes/sof-resources-cpt.php:217
+#: includes/class-cpt.php:238
+#, php-format
 msgid "Resource draft updated. <a target=\"_blank\" href=\"%s\">Preview resource</a>"
 msgstr ""
 
-#: includes/sof-resources-metaboxes.php:65
+#: includes/class-metaboxes.php:82
 msgid "Stick at top"
 msgstr ""
 
-#: includes/sof-resources-metaboxes.php:104
+#: includes/class-metaboxes.php:121
 msgid "Stick at top of lists"
 msgstr ""
