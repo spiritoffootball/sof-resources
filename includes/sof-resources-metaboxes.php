@@ -33,7 +33,24 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 *
 	 * @since 0.1
 	 */
-	public function __construct() {}
+	public function __construct() {
+
+		// Init when this plugin is loaded.
+		add_action( 'sof_resources/loaded', [ $this, 'initialise' ] );
+
+	}
+
+	/**
+	 * Initialise this object.
+	 *
+	 * @since 1.0.0
+	 */
+	public function initialise() {
+
+		// Register hooks.
+		$this->register_hooks();
+
+	}
 
 	/**
 	 * Register WordPress hooks.
@@ -50,7 +67,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 
 	}
 
-	// -------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------
 
 	/**
 	 * Adds meta boxes to admin screens.
@@ -125,7 +142,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 
 	}
 
-	// -------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------
 
 	/**
 	 * When a page is saved, this also saves the options.

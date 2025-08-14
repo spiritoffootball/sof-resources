@@ -69,14 +69,38 @@ class Spirit_Of_Football_Resources {
 	 */
 	public function __construct() {
 
-		// Include files.
+		// Initialise once plugins are loaded.
+		add_action( 'plugins_loaded', [ $this, 'initialise' ] );
+
+	}
+
+	/**
+	 * Initialise.
+	 *
+	 * @since 1.0.0
+	 */
+	public function initialise() {
+
+		// Only do this once.
+		static $done;
+		if ( isset( $done ) && true === $done ) {
+			return;
+		}
+
+		// Bootstrap plugin.
 		$this->include_files();
-
-		// Setup globals.
 		$this->setup_globals();
-
-		// Register hooks.
 		$this->register_hooks();
+
+		/**
+		 * Broadcast that this plugin is now loaded.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'sof_resources/loaded' );
+
+		// We're done.
+		$done = true;
 
 	}
 
@@ -88,8 +112,8 @@ class Spirit_Of_Football_Resources {
 	public function include_files() {
 
 		// Include class files.
-		include_once SOF_RESOURCES_PATH . 'includes/sof-resources-cpt.php';
-		include_once SOF_RESOURCES_PATH . 'includes/sof-resources-metaboxes.php';
+		require SOF_RESOURCES_PATH . 'includes/sof-resources-cpt.php';
+		require SOF_RESOURCES_PATH . 'includes/sof-resources-metaboxes.php';
 
 	}
 
@@ -114,11 +138,7 @@ class Spirit_Of_Football_Resources {
 	public function register_hooks() {
 
 		// Use translation.
-		add_action( 'plugins_loaded', [ $this, 'translation' ] );
-
-		// Hooks that always need to be present.
-		$this->cpt->register_hooks();
-		$this->metaboxes->register_hooks();
+		add_action( 'init', [ $this, 'translation' ] );
 
 	}
 
@@ -129,8 +149,19 @@ class Spirit_Of_Football_Resources {
 	 */
 	public function activate() {
 
-		// Pass through.
-		$this->cpt->activate();
+		// Make sure plugin is bootstrapped.
+		$this->initialise();
+
+		/**
+		 * Fires when this plugin has been activated.
+		 *
+		 * Used internally by:
+		 *
+		 * * Spirit_Of_Football_Resources_CPT::activate() (Priority: 10)
+		 *
+		 * @since 0.4.1
+		 */
+		do_action( 'sof_resources/activated' );
 
 	}
 
@@ -141,8 +172,19 @@ class Spirit_Of_Football_Resources {
 	 */
 	public function deactivate() {
 
-		// Pass through.
-		$this->cpt->deactivate();
+		// Make sure plugin is bootstrapped.
+		$this->initialise();
+
+		/**
+		 * Fires when this plugin has been deactivated.
+		 *
+		 * Used internally by:
+		 *
+		 * * Spirit_Of_Football_Resources_CPT::deactivate() (Priority: 10)
+		 *
+		 * @since 0.4.1
+		 */
+		do_action( 'sof_resources/deactivated' );
 
 	}
 

@@ -24,7 +24,24 @@ class Spirit_Of_Football_Resources_CPT {
 	 *
 	 * @since 0.1
 	 */
-	public function __construct() {}
+	public function __construct() {
+
+		// Init when this plugin is loaded.
+		add_action( 'sof_resources/loaded', [ $this, 'initialise' ] );
+
+	}
+
+	/**
+	 * Initialise this object.
+	 *
+	 * @since 1.0.0
+	 */
+	public function initialise() {
+
+		// Register hooks.
+		$this->register_hooks();
+
+	}
 
 	/**
 	 * Register WordPress hooks.
@@ -32,6 +49,10 @@ class Spirit_Of_Football_Resources_CPT {
 	 * @since 0.1
 	 */
 	public function register_hooks() {
+
+		// Activation and deactivation.
+		add_action( 'sof_resources/activated', [ $this, 'activate' ] );
+		add_action( 'sof_resources/deactivated', [ $this, 'deactivate' ] );
 
 		// Always create post types.
 		add_action( 'init', [ $this, 'create_post_type' ] );
@@ -68,7 +89,7 @@ class Spirit_Of_Football_Resources_CPT {
 
 	}
 
-	// -------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------
 
 	/**
 	 * Create our Custom Post Type.
