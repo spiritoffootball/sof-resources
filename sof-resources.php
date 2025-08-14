@@ -112,8 +112,8 @@ class Spirit_Of_Football_Resources {
 	public function include_files() {
 
 		// Include class files.
-		require SOF_RESOURCES_PATH . 'includes/sof-resources-cpt.php';
-		require SOF_RESOURCES_PATH . 'includes/sof-resources-metaboxes.php';
+		require SOF_RESOURCES_PATH . 'includes/class-cpt.php';
+		require SOF_RESOURCES_PATH . 'includes/class-metaboxes.php';
 
 	}
 
