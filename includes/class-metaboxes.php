@@ -130,73 +130,42 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 *
 	 * @since 0.1
 	 *
-	 * @param integer $post_id The ID of the post or revision.
-	 * @param integer $post The post object.
+	 * @param int     $post_id The ID of the WordPress Post or revision.
+	 * @param WP_POst $post The WordPress Post object.
 	 */
 	public function save_post( $post_id, $post ) {
 
-		// We don't use post_id because we're not interested in revisions.
-
-		// Store our page meta data.
-		$result = $this->save_page_meta( $post );
-
-	}
-
-	// -----------------------------------------------------------------------------------
-
-	/**
-	 * When a page is saved, this also saves the options.
-	 *
-	 * @since 0.1
-	 *
-	 * @param WP_Post $post_obj The object for the post or revision.
-	 */
-	private function save_page_meta( $post_obj ) {
-
-		// Bail if no post.
-		if ( ! $post_obj ) {
+		// Bail if there's no Post object.
+		if ( ! $post ) {
 			return;
 		}
 
-		// Authenticate.
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$nonce = isset( $_POST['sof_resource_nonce'] ) ? wp_unslash( $_POST['sof_resource_nonce'] ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'sof_resource_settings' ) ) {
-			return;
-		}
-
-		// Is this an auto save routine?
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		// Check permissions.
-		if ( ! current_user_can( 'edit_page', $post_obj->ID ) ) {
+		// Bail if this is an autosave.
+		if ( wp_is_post_autosave( $post ) ) {
 			return;
 		}
 
 		// Check for revision.
-		if ( 'revision' === $post_obj->post_type ) {
-
-			// Get parent.
-			if ( 0 !== (int) $post_obj->post_parent ) {
-				$post = get_post( $post_obj->post_parent );
-			} else {
-				$post = $post_obj;
-			}
-
-		} else {
-			$post = $post_obj;
+		$parent_id = wp_is_post_revision( $post );
+		if ( $parent_id ) {
+			$post = get_post( $parent_id );
 		}
 
-		// Bail if not resource post type.
-		if ( 'resource' === $post->post_type ) {
+		// Bail if not the post type we want.
+		if ( 'resource' !== $post->post_type ) {
 			return;
 		}
 
-		// ---------------------------------------------------------------------
-		// Okay, we're through...
-		// ---------------------------------------------------------------------
+		// Check permissions.
+		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+			return;
+		}
+
+		// Authenticate.
+		$nonce = isset( $_POST['sof_resource_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['sof_resource_nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'sof_resource_settings' ) ) {
+			return;
+		}
 
 		// Define prefixed key.
 		$db_key = '_' . $this->sticky_meta_key;
@@ -224,7 +193,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 				// Loop and save, excluding current post.
 				foreach ( $resources as $resource ) {
 					if ( (int) $post->ID !== (int) $resource->ID ) {
-						$this->save_meta( $post, $db_key, '0' );
+						$this->save_meta( $resource, $db_key, '0' );
 					}
 				}
 
@@ -239,7 +208,7 @@ class Spirit_Of_Football_Resources_Metaboxes {
 	 *
 	 * @since 0.1
 	 *
-	 * @param WP_Post $post The WordPress post object.
+	 * @param WP_Post $post The WordPress Post object.
 	 * @param string  $key The meta key.
 	 * @param mixed   $data The data to be saved.
 	 * @return mixed $data The data that was saved.
